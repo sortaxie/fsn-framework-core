@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
 
 /**
  * 采用对称算法加密实现的token机制
- * User: Jim
+ * User: Sorta
  * Date: 16-8-28
  * Time: 下午10:46
  */
