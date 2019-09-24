@@ -20,6 +20,7 @@ public class BeanUtil {
         for (Object items : sourceList) {
             Object target = clazz.newInstance();
             BeanUtils.copyProperties(items, target);
+           // BeanUtils.copyProperties(source, targetInstance, ignoreProperties);  ignoreProperties 为不复制属性
             targetList.add(target);
         }
 
