@@ -108,16 +108,16 @@ public class EncryptedToken extends Token {
     }
 
     public static void main(String args[]) {
-        Token token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", 111,0, "22222", null, ClientType.WXAPP);
-        System.out.println(token);
-        String cipherToken = token.toCipherString();
-        System.out.println(cipherToken);
-        Token _token = null;
-        try {
-            _token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", URLDecoder.decode("fTfpAIWCqO4tynRYg8j6vdGCUZMLdV%2BWqldExeYCU3flsQVlSK2xOQ%3D%3D","UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        System.out.println(_token);
+//        Token token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", 111,0, "22222", null, ClientType.WXAPP);
+//        System.out.println(token);
+//        String cipherToken = token.toCipherString();
+//        System.out.println(cipherToken);
+//        Token _token = null;
+//        try {
+//            _token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", URLDecoder.decode("fTfpAIWCqO4tynRYg8j6vdGCUZMLdV%2BWqldExeYCU3flsQVlSK2xOQ%3D%3D","UTF-8"));
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(_token);
     }
 }
