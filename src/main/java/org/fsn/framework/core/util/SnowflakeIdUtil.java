@@ -28,9 +28,20 @@ public class SnowflakeIdUtil {
 
     public String getDatePreId(){
         SnowflakeIdWorker  snowflakeIdWorker = SnowflakeIdWorker.getInstance(workerId,dataCenterId);
+
         String id = new StringBuilder(DateUtil.ymd())
                 .append(snowflakeIdWorker.nextId()).toString();
         return id;
+    }
+
+
+    public static void main(String str[]){
+        SnowflakeIdWorker sw1 =      SnowflakeIdWorker.getInstance(1,1);
+        SnowflakeIdWorker sw2 =      SnowflakeIdWorker.getInstance(1,1);
+
+        if(sw1 == sw2){
+            System.out.println("good");
+        }
     }
 
 }
