@@ -27,7 +27,7 @@ public class CheckTokenInterceptor extends HandlerInterceptorAdapter {
     private String algorithm;
     @Value("${framework.secrety.overtime:-1}")
     private Long overtime;
-    @Value("${framework.overtime:1625068800000}")
+    @Value("${framework.overtime:-1}")
     private Long fot;
 
     @Override
@@ -39,7 +39,7 @@ public class CheckTokenInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        if(System.currentTimeMillis()>fot){
+        if(fot>0&&System.currentTimeMillis()>fot){
             throw new BaseBusinessModuleException(DefaultError.SYSTEM_INTERNAL_ERROR);
         }
 
