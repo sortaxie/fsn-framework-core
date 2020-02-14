@@ -4,11 +4,15 @@ import com.netflix.discovery.EurekaClient;
 import org.fsn.framework.common.pojo.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 @RestController
+@ConditionalOnClass(EurekaClient.class)
 public class ShutdownController {
 
 
@@ -17,7 +21,7 @@ public class ShutdownController {
     @Value("${framework.secrety.pwd:''}")
     private String pwd;
 
-    @Autowired
+    @Resource
     private EurekaClient eurekaClient;
 
 

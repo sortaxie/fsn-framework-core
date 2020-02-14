@@ -7,6 +7,8 @@ import java.util.Date;
 public class Token implements Serializable{
     private static final long serialVersionUID = -6602465878134234541L;
 
+    public static int DEFAULTFRN =0;
+
     public enum ClientType{
         UNKNOWN(0),MOBILE(1),BROWSER(2),WX(3),WXAPP(4);
 
@@ -32,11 +34,13 @@ public class Token implements Serializable{
 
     protected Integer uid;
     protected Integer frnId;//加盟商
+    protected Long sid;// 店铺id
     protected String phoneNumber;
-    protected String clientId;
+    protected String clientId; //手机唯一编码
     protected ClientType clientType;
     protected long createdTime;
     protected String cipherString;
+
 
     public Token(){
 
@@ -45,10 +49,35 @@ public class Token implements Serializable{
     public Token(Integer uid, Integer frnId,String phoneNumber, String clientId, ClientType clientType){
         this.uid = uid;
         this.frnId = frnId;
+        this.sid = 0L;
         this.phoneNumber = phoneNumber;
         this.clientId = clientId;
         this.clientType = clientType;
         createdTime = new Date().getTime();
+    }
+
+    public Token(Integer uid, Integer frnId,Long sid,String phoneNumber, String clientId, ClientType clientType){
+        this.uid = uid;
+        this.frnId = frnId;
+        this.sid = sid;
+        this.phoneNumber = phoneNumber;
+        this.clientId = clientId;
+        this.clientType = clientType;
+        createdTime = new Date().getTime();
+    }
+
+
+
+    public String toCipherString(){return cipherString;};
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("uid : ").append(uid).append(",").append("frnId : ").append(frnId).append(",").append("sid : ").append(sid).append(",").
+        append("phoneNumber : ").append(phoneNumber).append(",").
+        append("clientId : ").append(clientId).append(",").
+        append("clientType : ").append(clientType.name()).append(",").
+        append("create Date :").append(createdTime);
+        return sb.toString();
     }
 
     public Integer getUid() {
@@ -79,23 +108,19 @@ public class Token implements Serializable{
         return createdTime;
     }
 
-    public String toCipherString(){return cipherString;};
-
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("uid : ").append(uid).append(",").append("frnId : ").append(frnId).append(",").
-        append("phoneNumber : ").append(phoneNumber).append(",").
-        append("clientId : ").append(clientId).append(",").
-        append("clientType : ").append(clientType.name()).append(",").
-        append("create Date :").append(createdTime);
-        return sb.toString();
-    }
-
     public Integer getFrnId() {
         return frnId;
     }
 
     public void setFrnId(Integer frnId) {
         this.frnId = frnId;
+    }
+
+    public Long getSid() {
+        return sid;
+    }
+
+    public void setSid(Long sid) {
+        this.sid = sid;
     }
 }
