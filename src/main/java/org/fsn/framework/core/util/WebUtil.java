@@ -26,7 +26,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author sorta
  */
-public class WebUtils {
+public class WebUtil {
 
     public static String required(HttpServletRequest req, String key) {
         String value = req.getParameter(key);
