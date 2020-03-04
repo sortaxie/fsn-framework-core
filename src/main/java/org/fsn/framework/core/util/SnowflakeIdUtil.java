@@ -19,6 +19,10 @@ public class SnowflakeIdUtil {
         return  snowflakeIdWorker.nextId();
     }
 
+    public Long getLongId(){
+        return  Long.parseLong(getId());
+    }
+
     public String getId(String prefix){
         SnowflakeIdWorker  snowflakeIdWorker = SnowflakeIdWorker.getInstance(workerId,dataCenterId);
         String id = new StringBuilder(prefix)
