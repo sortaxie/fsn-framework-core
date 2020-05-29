@@ -34,6 +34,8 @@ public class EncryptedToken extends Token {
         init();
     }
 
+
+
     public EncryptedToken(String secretKey, String algorithm, Integer uid, Integer frnId,Long sid, String phoneNumber, String clientId, ClientType clientType) {
         super(uid,frnId,sid, phoneNumber, clientId, clientType);
         this.tokenKey = secretKey;
@@ -43,6 +45,13 @@ public class EncryptedToken extends Token {
 
     public EncryptedToken(String secretKey, String algorithm, Integer uid,Long sid, String phoneNumber, String clientId, ClientType clientType) {
         super(uid,Token.DEFAULTFRN,sid, phoneNumber, clientId, clientType);
+        this.tokenKey = secretKey;
+        this.tokenAlgorithm = algorithm;
+        init();
+    }
+
+    public EncryptedToken(String secretKey, String algorithm, Long ulid,Long sid, String phoneNumber, String clientId, ClientType clientType) {
+        super(ulid,Token.DEFAULTFRN,sid, phoneNumber, clientId, clientType);
         this.tokenKey = secretKey;
         this.tokenAlgorithm = algorithm;
         init();
@@ -70,6 +79,7 @@ public class EncryptedToken extends Token {
             String tokenPlainText = new String(plainBytes);
             StringTokenizer st = new StringTokenizer(tokenPlainText, "|");
             uid = Integer.parseInt(st.nextToken());
+            ulid= Long.parseLong(st.nextToken());
             frnId = Integer.parseInt(st.nextToken());
             sid = Long.parseLong(st.nextToken());
             phoneNumber = st.nextToken();
@@ -103,7 +113,7 @@ public class EncryptedToken extends Token {
         try {
             Cipher cipher = Cipher.getInstance(tokenAlgorithm);
             cipher.init(Cipher.ENCRYPT_MODE, key);
-            String tokenPlainText = uid + "|" +frnId+"|"+sid+"|"+ phoneNumber + "|" + clientId + "|" + clientType.getCode() + "|" + createdTime;
+            String tokenPlainText = uid + "|"+ulid+"|" +frnId+"|"+sid+"|"+ phoneNumber + "|" + clientId + "|" + clientType.getCode() + "|" + createdTime;
             byte[] cipherBytes = cipher.doFinal(tokenPlainText.getBytes());
             return URLEncoder.encode(new String(new BASE64Encoder().encode(cipherBytes)),"UTF-8");
         } catch (Exception e) {
@@ -113,7 +123,7 @@ public class EncryptedToken extends Token {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("uid :").append(uid).append(",").
+        sb.append("uid :").append(uid).append(",").append(ulid).append(",").
                 append("frnId :").append(frnId).append(",").
                 append("sid :").append(sid).append(",").
                 append("phoneNumber :").append(phoneNumber).append(",").
@@ -124,13 +134,13 @@ public class EncryptedToken extends Token {
     }
 
     public static void main(String args[]) {
-        Token token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", 111,1L, "13981719943", null, ClientType.WXAPP);
+        Token token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", 11L,1L, "13981719943", null, ClientType.WXAPP);
         System.out.println(token);
         String cipherToken = token.toCipherString();
         System.out.println(cipherToken);
         Token _token = null;
         try {
-            _token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", URLDecoder.decode("e7SynJfrlzfsgNfLU1TK5Z9IsrraAz3kNUjr%2BNzob2heuR9xYwiSVQ%3D%3D","UTF-8"));
+            _token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", URLDecoder.decode(cipherToken,"UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

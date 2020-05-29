@@ -33,6 +33,7 @@ public class Token implements Serializable{
     }
 
     protected Integer uid;
+    protected Long ulid;
     protected Integer frnId;//加盟商
     protected Long sid;// 店铺id
     protected String phoneNumber;
@@ -48,6 +49,7 @@ public class Token implements Serializable{
 
     public Token(Integer uid, Integer frnId,String phoneNumber, String clientId, ClientType clientType){
         this.uid = uid;
+        this.ulid = 0L;
         this.frnId = frnId;
         this.sid = 0L;
         this.phoneNumber = phoneNumber;
@@ -56,8 +58,11 @@ public class Token implements Serializable{
         createdTime = new Date().getTime();
     }
 
+
+
     public Token(Integer uid, Integer frnId,Long sid,String phoneNumber, String clientId, ClientType clientType){
         this.uid = uid;
+        this.ulid = 0L;
         this.frnId = frnId;
         this.sid = sid;
         this.phoneNumber = phoneNumber;
@@ -66,6 +71,16 @@ public class Token implements Serializable{
         createdTime = new Date().getTime();
     }
 
+    public Token(Long ulid, Integer frnId,Long sid,String phoneNumber, String clientId, ClientType clientType){
+        this.uid = 0;
+        this.ulid = ulid;
+        this.frnId = frnId;
+        this.sid = sid;
+        this.phoneNumber = phoneNumber;
+        this.clientId = clientId;
+        this.clientType = clientType;
+        createdTime = new Date().getTime();
+    }
 
 
     public String toCipherString(){return cipherString;};
@@ -122,5 +137,13 @@ public class Token implements Serializable{
 
     public void setSid(Long sid) {
         this.sid = sid;
+    }
+
+    public Long getUlid() {
+        return ulid;
+    }
+
+    public void setUlid(Long ulid) {
+        this.ulid = ulid;
     }
 }
