@@ -113,6 +113,9 @@ public class EncryptedToken extends Token {
         try {
             Cipher cipher = Cipher.getInstance(tokenAlgorithm);
             cipher.init(Cipher.ENCRYPT_MODE, key);
+            if(phoneNumber==""){
+                phoneNumber = null;
+            }
             String tokenPlainText = uid + "|"+ulid+"|" +frnId+"|"+sid+"|"+ phoneNumber + "|" + clientId + "|" + clientType.getCode() + "|" + createdTime;
             byte[] cipherBytes = cipher.doFinal(tokenPlainText.getBytes());
             return URLEncoder.encode(new String(new BASE64Encoder().encode(cipherBytes)),"UTF-8");
@@ -134,7 +137,7 @@ public class EncryptedToken extends Token {
     }
 
     public static void main(String args[]) {
-        Token token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", 11L,1L, "13981719943", null, ClientType.WXAPP);
+        Token token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", 11L,1L, "", null, ClientType.WX);
         System.out.println(token);
         String cipherToken = token.toCipherString();
         System.out.println(cipherToken);
