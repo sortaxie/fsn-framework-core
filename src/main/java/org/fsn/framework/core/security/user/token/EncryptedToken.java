@@ -3,6 +3,7 @@ package org.fsn.framework.core.security.user.token;
 
 import org.fsn.framework.core.security.exception.BaseSecurityException;
 import org.fsn.framework.core.security.user.Token;
+import org.springframework.util.StringUtils;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -113,7 +114,7 @@ public class EncryptedToken extends Token {
         try {
             Cipher cipher = Cipher.getInstance(tokenAlgorithm);
             cipher.init(Cipher.ENCRYPT_MODE, key);
-            if(phoneNumber==""){
+            if("".equals(phoneNumber)){
                 phoneNumber = null;
             }
             String tokenPlainText = uid + "|"+ulid+"|" +frnId+"|"+sid+"|"+ phoneNumber + "|" + clientId + "|" + clientType.getCode() + "|" + createdTime;
@@ -137,7 +138,7 @@ public class EncryptedToken extends Token {
     }
 
     public static void main(String args[]) {
-        Token token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", 11L,1L, "", null, ClientType.WX);
+        Token token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", 11L,1L, " ", null, ClientType.WX);
         System.out.println(token);
         String cipherToken = token.toCipherString();
         System.out.println(cipherToken);
