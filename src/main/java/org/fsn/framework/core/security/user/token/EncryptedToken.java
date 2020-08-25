@@ -3,7 +3,6 @@ package org.fsn.framework.core.security.user.token;
 
 import org.fsn.framework.core.security.exception.BaseSecurityException;
 import org.fsn.framework.core.security.user.Token;
-import org.springframework.util.StringUtils;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
